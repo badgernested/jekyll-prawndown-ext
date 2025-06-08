@@ -33,23 +33,23 @@ module PrawndownExt
 	@header6_size = 14
 
 	if !options.nil?
-		if options.key?(:header1)
-			@header1_size = options[:header1]
+		if options.key?(:header1_size)
+			@header1_size = options[:header1_size]
 		end
-		if options.key?(:header2)
-			@header2_size = options[:header2]
+		if options.key?(:header2_size)
+			@header2_size = options[:header2_size]
 		end
-		if options.key?(:header3)
-			@header3_size = options[:header3]
+		if options.key?(:header3_size)
+			@header3_size = options[:header3_size]
 		end
-		if options.key?(:header4)
-			@header4_size = options[:header4]
+		if options.key?(:header4_size)
+			@header4_size = options[:header4_size]
 		end
-		if options.key?(:header5)
-			@header5_size = options[:header5]
+		if options.key?(:header5_size)
+			@header5_size = options[:header5_size]
 		end
-		if options.key?(:header6)
-			@header6_size = options[:header6]
+		if options.key?(:header6_size)
+			@header6_size = options[:header6_size]
 		end
 	end
 	

@@ -1,43 +1,30 @@
-# Jekyll::Prawndown::Ext
+# prawndown-ext
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jekyll/prawndown/ext`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-## Installation
-
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
-Install the gem and add to the application's Gemfile by executing:
-
-```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
-```
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
-```
+An extension of [Prawndown](https://github.com/kaspermeyer/prawndown), used for Jekyll blogs (but can be used for other stuff too).
 
 ## Usage
 
-TODO: Write usage instructions here
+When using prawn, you can call the ``markdown`` method in your calls to render markdown.
 
-## Development
+``content`` is the markdown content you want to render.
+``options`` is a hash/dictionary of options that can modify how the text is rendered.
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```
+markdown (content, options: options)
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+### Options
 
-## Contributing
+This is a list of possible options you can pass to prawndown-ext.
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/jekyll-prawndown-ext. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/jekyll-prawndown-ext/blob/master/CODE_OF_CONDUCT.md).
+* ``:header1_size`` - Header 1 font size (default 28)
+* ``:header2_size`` - Header 2 font size (default 24)
+* ``:header3_size`` - Header 3 font size (default 20)
+* ``:header4_size`` - Header 4 font size (default 18)
+* ``:header5_size`` - Header 5 font size (default 16)
+* ``:header6_size`` - Header 6 font size (default 14)
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-## Code of Conduct
-
-Everyone interacting in the Jekyll::Prawndown::Ext project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/jekyll-prawndown-ext/blob/master/CODE_OF_CONDUCT.md).
