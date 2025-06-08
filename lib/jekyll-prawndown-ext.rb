@@ -1,0 +1,22 @@
+require 'prawn'
+require "version"
+require "parser"
+
+module PrawndownExt
+  module Interface
+    # Renders Markdown in the current document
+    #
+    # It supports header 1-6, bold text, italic text, strikethrough and links
+    # It supports the same options as +Prawn::Document#text+
+    #
+    #   Prawn::Document.generate('markdown.pdf') do
+    #     markdown '# Welcome to Prawndown!'
+    #     markdown '**Important:** We _hope_ you enjoy your stay!'
+    #   end
+    def markdown(string, options: nil)
+      	text PrawndownExt::Parser.new(string, options).to_prawn, options.merge(inline_format: true)
+    end
+  end
+end
+
+Prawn::Document.extensions << PrawndownExt::Interface
