@@ -17,12 +17,12 @@ markdown (content, options: options)
 
 This is a list of possible options you can pass to prawndown-ext.
 
-* ``:header1_size`` - Header 1 font size (default 28)
-* ``:header2_size`` - Header 2 font size (default 24)
-* ``:header3_size`` - Header 3 font size (default 20)
-* ``:header4_size`` - Header 4 font size (default 18)
-* ``:header5_size`` - Header 5 font size (default 16)
-* ``:header6_size`` - Header 6 font size (default 14)
+* ``"header1_size"`` - Header 1 font size (default 28)
+* ``"header2_size"`` - Header 2 font size (default 24)
+* ``"header3_size"`` - Header 3 font size (default 20)
+* ``"header4_size"`` - Header 4 font size (default 18)
+* ``"header5_size"`` - Header 5 font size (default 16)
+* ``"header6_size"`` - Header 6 font size (default 14)
 
 ## License
 

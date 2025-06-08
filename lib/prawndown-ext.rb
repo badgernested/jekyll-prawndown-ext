@@ -1,6 +1,6 @@
 require 'prawn'
-require "version"
-require "parser"
+require "prawndown/version"
+require "prawndown/parser"
 
 module PrawndownExt
   module Interface
