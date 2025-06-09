@@ -13,6 +13,18 @@ When using prawn, you can call the ``markdown`` method in your calls to render m
 markdown (content, options: options)
 ```
 
+## Supported Markdown
+
+Supports the following effects:
+* Header
+* Links
+* Bold, italic, strikethrough
+* Images
+* Quotes
+
+Removes the following:
+* ``<iframe>`` references such as YouTube videos
+
 ### Options
 
 This is a list of possible options you can pass to prawndown-ext.

@@ -2,21 +2,32 @@ module PrawndownExt
   # Markdown to Prawn parser
   class Parser
     MATCHERS = {
-      #/^> (.+)/                  => '<quote>\1</quote>', # Quote
+      ## Regular markdown
       /^# (.+)/                  => '<font size="HEADER1_SIZE"><b>\1</b></font>', # Header 1
       /^## (.+)/                 => '<font size="HEADER2_SIZE"><b>\1</b></font>', # Header 2
       /^### (.+)/                => '<font size="HEADER3_SIZE"><b>\1</b></font>', # Header 3
       /^#### (.+)/               => '<font size="HEADER4_SIZE"><b>\1</b></font>', # Header 4
       /^##### (.+)/              => '<font size="HEADER5_SIZE"><b>\1</b></font>', # Header 5
       /^###### (.+)/             => '<font size="HEADER6_SIZE"><b>\1</b></font>', # Header 6
-      #/!\[([^\[]+)\]\(([^\)]+)\)/ => '<img href="\2" alt="\1">',        # Image
-      /!\[([^\[]+)\]\(([^\)]+)\)/ => '',        # Images removed for now
       /<iframe ([^\[]+)<\/iframe>/ => '',        # Embeds are just removed
-      /\[([^\[]+)\]\(([^\)]+)\)/ => '<link href="\2">\1</link>',        # Link
       /(\*\*|__)(.*?)\1/         => '<b>\2</b>',                        # Bold
       /(\*|_)(.*?)\1/            => '<i>\2</i>',                        # Italic
-      /\~\~(.*?)\~\~/            => '<strikethrough>\1</strikethrough>' # Strikethrough
+      /\~\~(.*?)\~\~/            => '<strikethrough>\1</strikethrough>', # Strikethrough
+      
+      # Command Break items
+      # These split into multiple commands for output
+      
+      # Images
+      /!\[([^\[]+)\]\(([^\)]+)\)/ => '<command_break>{"command":"img", "alt":"\1", "path":"\2"}<command_break>',
+      /^> (.+)/                  => '<command_break>{"command":"quote","margin":100,"text":"\\1"}<command_break>', # Quote
+      
+      # Stuff to process last
+      /\[([^\[]+)\]\(([^\)]+)\)/ => '<link href="\2">\1</link>',        # Link
     }
+
+		def escape_text text
+			text = text.gsub('"', '\\"')
+		end
 
     # Initialize a new +Prawndown::Parser+.
     # +text+ must a a valid Markdown string that only contains supported tags.
@@ -24,34 +35,35 @@ module PrawndownExt
     # Supported tags are: Header 1-6, bold, italic, strikethrough and link.
     def initialize(text, options)
 
-      @text = text.to_s
-	@header1_size = 28
-	@header2_size = 24
-	@header3_size = 20
-	@header4_size = 18
-	@header5_size = 16
-	@header6_size = 14
-
-	if !options.nil?
-		if options.key?("header1_size")
-			@header1_size = options["header1_size"]
-		end
-		if options.key?("header2_size")
-			@header2_size = options["header2_size"]
-		end
-		if options.key?("header3_size")
-			@header3_size = options["header3_size"]
-		end
-		if options.key?("header4_size")
-			@header4_size = options["header4_size"]
-		end
-		if options.key?("header5_size")
-			@header5_size = options["header5_size"]
-		end
-		if options.key?("header6_size")
-			@header6_size = options["header6_size"]
-		end
-	end
+			#@text = text.to_s
+		  @text = escape_text text.to_s
+			@header1_size = 28
+			@header2_size = 24
+			@header3_size = 20
+			@header4_size = 18
+			@header5_size = 16
+			@header6_size = 14
+			
+			if !options.nil?
+				if options.key?("header1_size")
+					@header1_size = options["header1_size"]
+				end
+				if options.key?("header2_size")
+					@header2_size = options["header2_size"]
+				end
+				if options.key?("header3_size")
+					@header3_size = options["header3_size"]
+				end
+				if options.key?("header4_size")
+					@header4_size = options["header4_size"]
+				end
+				if options.key?("header5_size")
+					@header5_size = options["header5_size"]
+				end
+				if options.key?("header6_size")
+					@header6_size = options["header6_size"]
+				end
+			end
 	
     end
 
@@ -74,8 +86,9 @@ module PrawndownExt
       result = _match.inject(@text) do |final_string, (markdown_matcher, prawn_tag)|
         final_string.gsub(markdown_matcher, prawn_tag)
       end
-      
     
+    result = result.split("<command_break>")
+
     result
       
     end
