@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.3] - 2025-06-09
+
+- Fixed bugs with rendering quotes.
+
 ## [0.1.2] - 2025-06-09
 
 - Added support for images and quotes.

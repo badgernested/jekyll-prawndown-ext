@@ -19,7 +19,7 @@ module PrawndownExt
       
       # Images
       /!\[([^\[]+)\]\(([^\)]+)\)/ => '<command_break>{"command":"img", "alt":"\1", "path":"\2"}<command_break>',
-      /^> (.+)/                  => '<command_break>{"command":"quote","margin":100,"text":"\\1"}<command_break>', # Quote
+      /^> (.+)/                  => '<command_break>{"command":"quote","margin":20,"text":"\\1"}<command_break>', # Quote
       
       # Stuff to process last
       /\[([^\[]+)\]\(([^\)]+)\)/ => '<link href="\2">\1</link>',        # Link

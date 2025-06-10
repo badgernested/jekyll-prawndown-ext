@@ -17,18 +17,15 @@ module PrawndownExt
 			
 			def self.cl_text args, pdf
 			
-				pdf.text args["text"]
+				pdf.text args["text"], inline_format: true
 				
 			end
 			
 			def self.cl_text_box args, pdf
-				w_size = (pdf.bounds.width - args["margin"]).to_i
-				position = [((pdf.bounds.width - w_size) * 0.5).to_i, pdf.cursor]
-				
-				pdf.bounding_box(position, width: w_size) do
-				
-					pdf.text(args["text"])
-				
+				pdf.pad args["margin"] do
+					pdf.indent args["margin"], args["margin"] do
+						pdf.text args["text"], inline_format: true
+					end
 				end
 				
 			end
@@ -53,7 +50,7 @@ module PrawndownExt
 		end
   
 		def unescape_text text
-			text = text.gsub('\\"', '\"')
+			text = text.gsub('\\"', '"')
 		end
   
     # Renders Markdown in the current document
