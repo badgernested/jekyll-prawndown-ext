@@ -42,5 +42,5 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Other Stuff
 
-Check out [PetitFelix](https://github.com/badgernested/petitfelix) which uses PrawndownExt for producing printable PDFs from markdown pages.
+Check out [PetitFelix](https://github.com/badgernested/petitfelix) which uses prawndown-ext for producing printable PDFs from markdown pages.
 
