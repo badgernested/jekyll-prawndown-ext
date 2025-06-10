@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.4] - 2025-06-09
+
+- Improved how variables are replaced.
+
 ## [0.1.3] - 2025-06-09
 
 - Fixed bugs with rendering quotes.
