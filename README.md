@@ -39,6 +39,9 @@ This is a list of possible options you can pass to prawndown-ext.
 * ``"quote_font"`` - The quote font name as defined in ``Prawn::Document.font_families`` used for quotes.
 * ``"quote_font_spacing"`` - Spacing between characters for quote font.
 * ``"quote_margin"`` - The amount of margin on all sides the quotes have.
+* ``default_line_spacing`` - The amount of space in between lines on regular text.
+* ``header[1-6]_line_spacing`` - The amount of space in between lines on header text.
+* ``quote_line_spacing`` - The amount of space in between lines on quote text.
 
 ## License
 

@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.7] - 2025-06-10
+
+- Added support for line spacing.
+
 ## [0.1.6] - 2025-06-10
 
 - Added support for custom fonts, size and spacing for quotes.

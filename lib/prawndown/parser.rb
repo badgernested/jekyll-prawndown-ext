@@ -2,6 +2,18 @@ module PrawndownExt
   # Markdown to Prawn parser
   class Parser
   
+  	# These are used as a collection of nil properties
+  	# for font names.
+  	DELETE_NAMES = [
+			"quote_font",
+			"header1_font",
+			"header2_font",
+			"header3_font",
+			"header4_font",
+			"header5_font",
+			"header6_font",
+  	]
+  
   	DEFAULT_OPTIONS = {
 			"header1_size" => 28,
 			"header2_size" => 24,
@@ -12,21 +24,33 @@ module PrawndownExt
 			"quote_size" => 14,
 			"quote_font_spacing" => nil,
 			"quote_font" => nil,
+			"header1_font" => nil,
+			"header2_font" => nil,
+			"header3_font" => nil,
+			"header4_font" => nil,
+			"header5_font" => nil,
+			"header6_font" => nil,
 			"quote_margin" => 20,
   	}
   
     MATCHERS = {
-      ## Regular markdown
-      /^# (.+)/                  => '<font size="HEADER1_SIZE"><b>\1</b></font>', # Header 1
-      /^## (.+)/                 => '<font size="HEADER2_SIZE"><b>\1</b></font>', # Header 2
-      /^### (.+)/                => '<font size="HEADER3_SIZE"><b>\1</b></font>', # Header 3
-      /^#### (.+)/               => '<font size="HEADER4_SIZE"><b>\1</b></font>', # Header 4
-      /^##### (.+)/              => '<font size="HEADER5_SIZE"><b>\1</b></font>', # Header 5
-      /^###### (.+)/             => '<font size="HEADER6_SIZE"><b>\1</b></font>', # Header 6
       /<iframe ([^\[]+)<\/iframe>/ => '',        # Embeds are just removed
       /(\*\*|__)(.*?)\1/         => '<b>\2</b>',                        # Bold
       /(\*|_)(.*?)\1/            => '<i>\2</i>',                        # Italic
       /\~\~(.*?)\~\~/            => '<strikethrough>\1</strikethrough>', # Strikethrough
+      ## Regular markdown
+      ## Header 1
+      /^# (.+)/                  => '<command_break>{"command":"header1","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER1_FONT\' size=\'HEADER1_SIZE\'><b>\1</b></font>"}<command_break>', 
+      ## Header 2
+      /^## (.+)/                 => '<command_break>{"command":"header2","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER2_FONT\' size=\'HEADER2_SIZE\'><b>\1</b></font>"}<command_break>',
+      ## Header 3
+      /^### (.+)/                => '<command_break>{"command":"header3","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER3_FONT\' size=\'HEADER3_SIZE\'><b>\1</b></font>"}<command_break>',
+      ## Header 4
+      /^#### (.+)/               => '<command_break>{"command":"header4","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER4_FONT\' size=\'HEADER4_SIZE\'><b>\1</b></font>"}<command_break>',
+      ## Header 5
+      /^##### (.+)/              => '<command_break>{"command":"header5","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER5_FONT\' size=\'HEADER5_SIZE\'><b>\1</b></font>"}<command_break>',
+      ## Header 6
+      /^###### (.+)/             => '<command_break>{"command":"header6","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER6_FONT\' size=\'HEADER6_SIZE\'><b>\1</b></font>"}<command_break>',
       
       # Command Break items
       # These split into multiple commands for output
@@ -60,10 +84,15 @@ module PrawndownExt
     end
 
 		def replace_options text
-			# remove quote font if it doesnt exist
-			if @options["quote_font"].nil?
-				text = text.gsub("name='QUOTE_FONT' ", "")
-				@options.delete("quote_font")
+			# remove nil options if it doesnt exist
+			
+			DELETE_NAMES.each do |option|
+				if @options.key?(option)
+					if @options[option].nil?
+						text = text.gsub("name='" + option.upcase + "' ", "")
+						@options.delete(option)
+					end
+				end
 			end
 			
 			# remove quote spacing if it doesnt exist
@@ -90,7 +119,7 @@ module PrawndownExt
       result = _match.inject(@text) do |final_string, (markdown_matcher, prawn_tag)|
         final_string.gsub(markdown_matcher, prawn_tag)
       end
-    
+
     result = replace_options result
     
     result = result.split("<command_break>")
