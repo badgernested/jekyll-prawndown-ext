@@ -76,15 +76,9 @@ module PrawndownExt
         final_string.gsub(markdown_matcher, prawn_tag)
       end
     
+    result = replace_options result
+    
     result = result.split("<command_break>")
-
-		i = 0
-
-		# replaces optional values here
-		while i < result.length
-			result[i] = replace_options result[i]
-			i += 1
-		end
 
     result
       
