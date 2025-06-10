@@ -40,3 +40,7 @@ This is a list of possible options you can pass to prawndown-ext.
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
+## Other Stuff
+
+Check out [PetitFelix](https://github.com/badgernested/petitfelix) which uses PrawndownExt for producing printable PDFs from markdown pages.
+
