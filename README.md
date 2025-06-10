@@ -35,6 +35,7 @@ This is a list of possible options you can pass to prawndown-ext.
 * ``"header4_size"`` - Header 4 font size (default 18)
 * ``"header5_size"`` - Header 5 font size (default 16)
 * ``"header6_size"`` - Header 6 font size (default 14)
+* ``"quote_size"`` - Quoted text font size (default 14)
 
 ## License
 
