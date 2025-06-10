@@ -1,6 +1,17 @@
 module PrawndownExt
   # Markdown to Prawn parser
   class Parser
+  
+  	DEFAULT_OPTIONS = {
+			"header1_size" => 28,
+			"header2_size" => 24,
+			"header3_size" => 20,
+			"header4_size" => 18,
+			"header5_size" => 16,
+			"header6_size" => 14,
+			"quote_size" => 14
+  	}
+  
     MATCHERS = {
       ## Regular markdown
       /^# (.+)/                  => '<font size="HEADER1_SIZE"><b>\1</b></font>', # Header 1
@@ -19,7 +30,7 @@ module PrawndownExt
       
       # Images
       /!\[([^\[]+)\]\(([^\)]+)\)/ => '<command_break>{"command":"img", "alt":"\1", "path":"\2"}<command_break>',
-      /^> (.+)/                  => '<command_break>{"command":"quote","margin":20,"text":"\\1"}<command_break>', # Quote
+      /^> (.+)/                  => '<command_break>{"command":"quote","margin":20,"text":"<font size=\'QUOTE_SIZE\'>\\1</font>"}<command_break>', # Quote
       
       # Stuff to process last
       /\[([^\[]+)\]\(([^\)]+)\)/ => '<link href="\2">\1</link>',        # Link
@@ -31,63 +42,49 @@ module PrawndownExt
 
     # Initialize a new +Prawndown::Parser+.
     # +text+ must a a valid Markdown string that only contains supported tags.
-    #
-    # Supported tags are: Header 1-6, bold, italic, strikethrough and link.
     def initialize(text, options)
 
 			#@text = text.to_s
 		  @text = escape_text text.to_s
-			@header1_size = 28
-			@header2_size = 24
-			@header3_size = 20
-			@header4_size = 18
-			@header5_size = 16
-			@header6_size = 14
-			
-			if !options.nil?
-				if options.key?("header1_size")
-					@header1_size = options["header1_size"]
-				end
-				if options.key?("header2_size")
-					@header2_size = options["header2_size"]
-				end
-				if options.key?("header3_size")
-					@header3_size = options["header3_size"]
-				end
-				if options.key?("header4_size")
-					@header4_size = options["header4_size"]
-				end
-				if options.key?("header5_size")
-					@header5_size = options["header5_size"]
-				end
-				if options.key?("header6_size")
-					@header6_size = options["header6_size"]
-				end
-			end
+		  
+		  # this way a default is always loaded so no weird crashes
+		  @options = Marshal.load(Marshal.dump(DEFAULT_OPTIONS))
+		  
+		  options.keys.each do |key|
+		  	@options[key] = options[key]
+		  end
 	
     end
+
+		def replace_options text
+			DEFAULT_OPTIONS.keys.each do |replacer|
+				if @options.key?(replacer)
+					text = text.gsub(replacer.upcase, @options[replacer].to_s)
+				end
+			end
+			
+			text
+		end
 
     # Parses the Markdown text and outputs a Prawn compatible string
     def to_prawn
     
     	# variable replacement
       _match = Marshal.load(Marshal.dump(MATCHERS))
-      
-      _match.each {
-      	|x| puts 
-      	x[1].gsub!("HEADER1_SIZE", @header1_size.to_s)
-      	x[1].gsub!("HEADER2_SIZE", @header2_size.to_s)
-      	x[1].gsub!("HEADER3_SIZE", @header3_size.to_s)
-      	x[1].gsub!("HEADER4_SIZE", @header4_size.to_s)
-      	x[1].gsub!("HEADER5_SIZE", @header5_size.to_s)
-      	x[1].gsub!("HEADER6_SIZE", @header6_size.to_s)
-      }
 
       result = _match.inject(@text) do |final_string, (markdown_matcher, prawn_tag)|
         final_string.gsub(markdown_matcher, prawn_tag)
       end
     
     result = result.split("<command_break>")
+
+		i = 0
+
+		# replaces optional values here
+		while i < result.length
+			result[i] = replace_options result[i]
+			i += 1
+		end
 
     result
       
