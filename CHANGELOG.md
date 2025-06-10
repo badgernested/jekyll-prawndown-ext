@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.6] - 2025-06-10
+
+- Added support for custom fonts, size and spacing for quotes.
+
 ## [0.1.4-0.1.5] - 2025-06-09
 
 - Improved how variables are replaced.

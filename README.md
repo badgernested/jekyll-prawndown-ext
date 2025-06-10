@@ -36,6 +36,9 @@ This is a list of possible options you can pass to prawndown-ext.
 * ``"header5_size"`` - Header 5 font size (default 16)
 * ``"header6_size"`` - Header 6 font size (default 14)
 * ``"quote_size"`` - Quoted text font size (default 14)
+* ``"quote_font"`` - The quote font name as defined in ``Prawn::Document.font_families`` used for quotes.
+* ``"quote_font_spacing"`` - Spacing between characters for quote font.
+* ``"quote_margin"`` - The amount of margin on all sides the quotes have.
 
 ## License
 

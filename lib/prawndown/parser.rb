@@ -9,7 +9,10 @@ module PrawndownExt
 			"header4_size" => 18,
 			"header5_size" => 16,
 			"header6_size" => 14,
-			"quote_size" => 14
+			"quote_size" => 14,
+			"quote_font_spacing" => nil,
+			"quote_font" => nil,
+			"quote_margin" => 20,
   	}
   
     MATCHERS = {
@@ -30,7 +33,7 @@ module PrawndownExt
       
       # Images
       /!\[([^\[]+)\]\(([^\)]+)\)/ => '<command_break>{"command":"img", "alt":"\1", "path":"\2"}<command_break>',
-      /^> (.+)/                  => '<command_break>{"command":"quote","margin":20,"text":"<font size=\'QUOTE_SIZE\'>\\1</font>"}<command_break>', # Quote
+      /^> (.+)/                  => '<command_break>{"command":"quote","margin":QUOTE_MARGIN,"text":"<font name=\'QUOTE_FONT\' character_spacing=\'QUOTE_FONT_SPACING\' size=\'QUOTE_SIZE\'>\\1</font>"}<command_break>', # Quote
       
       # Stuff to process last
       /\[([^\[]+)\]\(([^\)]+)\)/ => '<link href="\2">\1</link>',        # Link
@@ -57,6 +60,18 @@ module PrawndownExt
     end
 
 		def replace_options text
+			# remove quote font if it doesnt exist
+			if @options["quote_font"].nil?
+				text = text.gsub("name='QUOTE_FONT' ", "")
+				@options.delete("quote_font")
+			end
+			
+			# remove quote spacing if it doesnt exist
+			if @options["quote_font_spacing"].nil?
+				text = text.gsub("character_spacing='QUOTE_FONT_SPACING' ", "")
+				@options.delete("quote_font_spacing")
+			end
+		
 			DEFAULT_OPTIONS.keys.each do |replacer|
 				if @options.key?(replacer)
 					text = text.gsub(replacer.upcase, @options[replacer].to_s)
