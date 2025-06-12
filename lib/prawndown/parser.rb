@@ -31,33 +31,41 @@ module PrawndownExt
 			"header5_font" => nil,
 			"header6_font" => nil,
 			"quote_margin" => 20,
+			"header1_margin" => 4,
+			"header2_margin" => 4,
+			"header3_margin" => 4,
+			"header4_margin" => 4,
+			"header5_margin" => 4,
+			"header6_margin" => 4,
   	}
   
     MATCHERS = {
+    	# Removes carriage returns, they cause issues
+    	/\r/ => '',
       /<iframe ([^\[]+)<\/iframe>/ => '',        # Embeds are just removed
       /(\*\*|__)(.*?)\1/         => '<b>\2</b>',                        # Bold
       /(\*|_)(.*?)\1/            => '<i>\2</i>',                        # Italic
       /\~\~(.*?)\~\~/            => '<strikethrough>\1</strikethrough>', # Strikethrough
       ## Regular markdown
       ## Header 1
-      /^# (.+)/                  => '<command_break>{"command":"header1","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER1_FONT\' size=\'HEADER1_SIZE\'><b>\1</b></font>"}<command_break>', 
+      /(^# )(.+)/                => '<command_break>{"command":"header1","margin":HEADER1_MARGIN,"text":"<font name=\'HEADER1_FONT\' size=\'HEADER1_SIZE\'><b>\2</b></font>"}<command_break>', 
       ## Header 2
-      /^## (.+)/                 => '<command_break>{"command":"header2","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER2_FONT\' size=\'HEADER2_SIZE\'><b>\1</b></font>"}<command_break>',
+      /(^## )(.*)/                 => '<command_break>{"command":"header2","margin":HEADER2_MARGIN,"text":"<font name=\'HEADER2_FONT\' size=\'HEADER2_SIZE\'><b>\2</b></font>"}<command_break>',
       ## Header 3
-      /^### (.+)/                => '<command_break>{"command":"header3","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER3_FONT\' size=\'HEADER3_SIZE\'><b>\1</b></font>"}<command_break>',
+      /(^### )(.*)/                => '<command_break>{"command":"header3","margin":HEADER3_MARGIN,"text":"<font name=\'HEADER3_FONT\' size=\'HEADER3_SIZE\'><b>\2</b></font>"}<command_break>',
       ## Header 4
-      /^#### (.+)/               => '<command_break>{"command":"header4","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER4_FONT\' size=\'HEADER4_SIZE\'><b>\1</b></font>"}<command_break>',
+      /(^#### )(.*)/               => '<command_break>{"command":"header4","margin":HEADER4_MARGIN,"text":"<font name=\'HEADER4_FONT\' size=\'HEADER4_SIZE\'><b>\2</b></font>"}<command_break>',
       ## Header 5
-      /^##### (.+)/              => '<command_break>{"command":"header5","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER5_FONT\' size=\'HEADER5_SIZE\'><b>\1</b></font>"}<command_break>',
+      /(^##### )(.*)/              => '<command_break>{"command":"header5","margin":HEADER5_MARGIN,"text":"<font name=\'HEADER5_FONT\' size=\'HEADER5_SIZE\'><b>\2</b></font>"}<command_break>',
       ## Header 6
-      /^###### (.+)/             => '<command_break>{"command":"header6","margin":QUOTE_MARGIN,"text":"<font name=\'HEADER6_FONT\' size=\'HEADER6_SIZE\'><b>\1</b></font>"}<command_break>',
+      /(^###### )(.*)/             => '<command_break>{"command":"header6","margin":HEADER6_MARGIN,"text":"<font name=\'HEADER6_FONT\' size=\'HEADER6_SIZE\'><b>\2</b></font>"}<command_break>',
       
       # Command Break items
       # These split into multiple commands for output
       
       # Images
       /!\[([^\[]+)\]\(([^\)]+)\)/ => '<command_break>{"command":"img", "alt":"\1", "path":"\2"}<command_break>',
-      /^> (.+)/                  => '<command_break>{"command":"quote","margin":QUOTE_MARGIN,"text":"<font name=\'QUOTE_FONT\' character_spacing=\'QUOTE_FONT_SPACING\' size=\'QUOTE_SIZE\'>\\1</font>"}<command_break>', # Quote
+      /^> (.+)/                  => '<command_break>{"command":"quote","margin":QUOTE_MARGIN,"text":"<font name=\'QUOTE_FONT\' character_spacing=\'QUOTE_FONT_SPACING\' size=\'QUOTE_SIZE\'>\1</font>"}<command_break>', # Quote
       
       # Stuff to process last
       /\[([^\[]+)\]\(([^\)]+)\)/ => '<link href="\2">\1</link>',        # Link

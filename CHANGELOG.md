@@ -1,6 +1,10 @@
 ## [Unreleased]
 
-## [0.1.7] - 2025-06-10
+## [0.1.9] - 2025-06-11
+
+- Added support for Windows new lines
+
+## [0.1.7-8] - 2025-06-10
 
 - Added support for line spacing.
 

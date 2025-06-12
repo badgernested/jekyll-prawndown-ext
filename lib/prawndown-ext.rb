@@ -31,7 +31,7 @@ module PrawndownExt
 				if !options.key?(args["command"] + "_line_spacing")
 					options[args["command"] + "_line_spacing"] = 0
 				end
-				
+
 				if !options.key?("margin")
 					args["margin"] = 0
 				end
@@ -45,9 +45,17 @@ module PrawndownExt
 			end
 			
 			def self.cl_img args, pdf, options
-				pdf.image(args["path"],
-									width: pdf.bounds.width,
-									position: :center)
+				file = args["path"]
+				
+				if !File.file?(file)
+					file = "." + file
+				end
+			
+				if File.extname(file) != ".gif"
+					pdf.image(file,
+										width: pdf.bounds.width,
+										position: :center)
+				end
 			end
 			
 			
@@ -91,6 +99,9 @@ module PrawndownExt
 					
 						CommandInterface.new.exec object, self, options
 					rescue
+						#print "\n\n"
+						#print output
+						#print "\n\n"
 						text unescape_text(output), inline_format: true, leading: options["default_line_spacing"].to_f
 					end
       		

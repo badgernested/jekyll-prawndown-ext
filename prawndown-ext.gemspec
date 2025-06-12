@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["PunishedFelix"]
   spec.email = ["labadore1844@gmail.com"]
 
-  spec.summary = "Extension of Prawndown to include additional features."
-  spec.description = "Extension of Prawndown to include additional Markdown features. Currently supports custom header sizes, removing iframe content. Need to write more to make images work."
+  spec.summary = "Extension of Prawndown to include additional features, such as customizing text fonts, sizes, and support for images and quotes."
+  spec.description = "Extension of Prawndown to include additional Markdown features. Currently supports custom header sizes, fonts, and other properties; removing iframe content, and support for images and quotes."
   spec.homepage = "https://github.com/badgernested/prawndown-ext"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.1.0"

@@ -35,13 +35,15 @@ This is a list of possible options you can pass to prawndown-ext.
 * ``"header4_size"`` - Header 4 font size (default 18)
 * ``"header5_size"`` - Header 5 font size (default 16)
 * ``"header6_size"`` - Header 6 font size (default 14)
+* ``"header[1-6]_font"`` - The quote font name as defined in ``Prawn::Document.font_families`` used for headers.
+* ``"header[1-6]_margin"`` - The amount of margin on all sides the headers have (default 4)
+* ``"header[1-6]_line_spacing"`` - The amount of space in between lines on header text.
 * ``"quote_size"`` - Quoted text font size (default 14)
 * ``"quote_font"`` - The quote font name as defined in ``Prawn::Document.font_families`` used for quotes.
 * ``"quote_font_spacing"`` - Spacing between characters for quote font.
-* ``"quote_margin"`` - The amount of margin on all sides the quotes have.
-* ``default_line_spacing`` - The amount of space in between lines on regular text.
-* ``header[1-6]_line_spacing`` - The amount of space in between lines on header text.
-* ``quote_line_spacing`` - The amount of space in between lines on quote text.
+* ``"quote_margin""`` - The amount of margin on all sides the quotes have.
+* ``"default_line_spacing"`` - The amount of space in between lines on regular text.
+* ``"quote_line_spacing"`` - The amount of space in between lines on quote text.
 
 ## License
 
