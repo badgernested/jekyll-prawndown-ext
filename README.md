@@ -44,6 +44,14 @@ This is a list of possible options you can pass to prawndown-ext.
 * ``"quote_margin""`` - The amount of margin on all sides the quotes have.
 * ``"default_line_spacing"`` - The amount of space in between lines on regular text.
 * ``"quote_line_spacing"`` - The amount of space in between lines on quote text.
+* ``"no_image"`` - If true, no images will be rendered.
+* ``"image_dir"`` - The base image directory to use for image references.
+
+### Extra Commands
+
+These commands allow for more customization.
+
+* ``"<br><br>"`` - Creates a new page.
 
 ## License
 

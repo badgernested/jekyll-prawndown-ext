@@ -19,6 +19,7 @@ module PrawndownExt
 				"header4" => -> (args,pdf, options) { cl_text_box(args, pdf, options) },
 				"header5" => -> (args,pdf, options) { cl_text_box(args, pdf, options) },
 				"header6" => -> (args,pdf, options) { cl_text_box(args, pdf, options) },
+				"newpage" => -> (args,pdf, options) { cl_newline(args, pdf, options) }
 			}
 			
 			def self.cl_text args, pdf, options
@@ -45,17 +46,31 @@ module PrawndownExt
 			end
 			
 			def self.cl_img args, pdf, options
-				file = args["path"]
+				if options.key?("no_image")
+					if options["no_image"]
+						return
+					end
+				end
+				
+				if args["path"][0] == "/"
+					args["path"] = args["path"][1..-1]
+				end
+				
+				file = options["image_dir"] + "/" + args["path"]
 				
 				if !File.file?(file)
-					file = "." + file
+					file = "." + options["image_dir"] + "/" + args["path"]
 				end
-			
+				
 				if File.extname(file) != ".gif"
 					pdf.image(file,
 										width: pdf.bounds.width,
 										position: :center)
 				end
+			end
+			
+			def self.cl_newline args, pdf, options
+				pdf.start_new_page()
 			end
 			
 			
@@ -86,6 +101,7 @@ module PrawndownExt
     #     markdown '**Important:** We _hope_ you enjoy your stay!'
     #   end
     def markdown(string, options: {})
+    
 				if !options.key?("default_line_spacing")
 					options["default_line_spacing"] = 0
 				end
@@ -99,9 +115,6 @@ module PrawndownExt
 					
 						CommandInterface.new.exec object, self, options
 					rescue
-						#print "\n\n"
-						#print output
-						#print "\n\n"
 						text unescape_text(output), inline_format: true, leading: options["default_line_spacing"].to_f
 					end
       		

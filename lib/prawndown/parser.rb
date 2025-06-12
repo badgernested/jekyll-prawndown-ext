@@ -37,6 +37,7 @@ module PrawndownExt
 			"header4_margin" => 4,
 			"header5_margin" => 4,
 			"header6_margin" => 4,
+			"img_dir" => "",
   	}
   
     MATCHERS = {
@@ -69,6 +70,10 @@ module PrawndownExt
       
       # Stuff to process last
       /\[([^\[]+)\]\(([^\)]+)\)/ => '<link href="\2">\1</link>',        # Link
+      
+      # Special commands exclusive to prawndown-ext to control output
+      # Two breaks in a row signifies a new page
+      /<br><br>/ => '<command_break>{"command":"newpage"}<command_break>'
     }
 
 		def escape_text text

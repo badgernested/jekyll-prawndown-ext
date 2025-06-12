@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [0.1.10] - 2025-06-12
+
+- Added support for custom image directory
+- Added new page command ``<br><br>``
+
 ## [0.1.9] - 2025-06-11
 
 - Added support for Windows new lines
