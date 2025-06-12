@@ -1,5 +1,7 @@
 # prawndown-ext
 
+[![Gem Version](https://badge.fury.io/rb/prawndown-ext.svg)](https://badge.fury.io/rb/prawndown-ext)
+
 An extension of [Prawndown](https://github.com/kaspermeyer/prawndown), used for Jekyll blogs (but can be used for other stuff too).
 
 ## Usage
