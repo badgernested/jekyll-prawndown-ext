@@ -98,7 +98,7 @@ module PrawndownExt
 
 		def replace_options text
 			# remove nil options if it doesnt exist
-			
+
 			DELETE_NAMES.each do |option|
 				if @options.key?(option)
 					if @options[option].nil?
@@ -106,6 +106,7 @@ module PrawndownExt
 						@options.delete(option)
 					end
 				end
+
 			end
 			
 			# remove quote spacing if it doesnt exist
@@ -115,9 +116,7 @@ module PrawndownExt
 			end
 		
 			DEFAULT_OPTIONS.keys.each do |replacer|
-				if @options.key?(replacer)
-					text = text.gsub(replacer.upcase, @options[replacer].to_s)
-				end
+				text = text.gsub(replacer.upcase, @options[replacer].to_s)
 			end
 			
 			text

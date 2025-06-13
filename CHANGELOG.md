@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.11] - 2025-06-13
+
+- Minor bug fixes
+
 ## [0.1.10] - 2025-06-12
 
 - Added support for custom image directory
