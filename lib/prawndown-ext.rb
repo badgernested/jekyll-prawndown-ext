@@ -37,7 +37,9 @@ module PrawndownExt
 					args["margin"] = 0
 				end
 			
-				pdf.pad args["margin"] do
+				half_margin = (args["margin"] * 0.5).floor
+			
+				pdf.pad half_margin do
 					pdf.indent args["margin"], args["margin"] do
 						pdf.text args["text"], inline_format: true, leading: options[args["command"] + "_line_spacing"].to_f
 					end
@@ -52,6 +54,25 @@ module PrawndownExt
 					end
 				end
 				
+				width = nil
+				height = nil
+				
+				if options.key?("image_width")
+					width = options["image_width"].to_i
+				end
+				
+				if options.key?("image_height")
+					height = options["image_height"].to_i
+				end
+				
+				if width.nil? && height.nil?
+					width = pdf.bounds.width
+				end
+				
+				if !width.nil?
+					width = [pdf.bounds.width, width].min
+				end
+				
 				if args["path"][0] == "/"
 					args["path"] = args["path"][1..-1]
 				end
@@ -63,14 +84,32 @@ module PrawndownExt
 				end
 				
 				if File.extname(file) != ".gif"
-					pdf.image(file,
-										width: pdf.bounds.width,
-										position: :center)
+					if !(height.nil? && width.nil?)
+					
+						if height.nil? && !width.nil?
+							pdf.image(file,
+											width: [pdf.bounds.width, width].min,
+											position: :center)
+						elsif !height.nil? && width.nil?
+							pdf.image(file,
+											height: height,
+											position: :center)
+						else
+							pdf.image(file,
+											width: [pdf.bounds.width, width].min,
+											height: height,
+											position: :center)
+						end
+					end
 				end
 			end
 			
 			def self.cl_newline args, pdf, options
-				pdf.start_new_page()
+				if pdf.bounds.instance_of? Prawn::Document::ColumnBox 
+					pdf.bounds.move_past_bottom
+				else
+					pdf.start_new_page
+				end
 			end
 			
 			

@@ -1,4 +1,9 @@
-## [Unreleased]
+## [Released]
+
+## [0.1.12] - 2025-06-14
+
+- Made it so <br> works more intuitively with ColumnBox
+- Added ``image_width`` and ``image_height``
 
 ## [0.1.11] - 2025-06-13
 
