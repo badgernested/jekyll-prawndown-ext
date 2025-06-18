@@ -33,14 +33,19 @@ module PrawndownExt
 					options[args["command"] + "_line_spacing"] = 0
 				end
 
-				if !options.key?("margin")
-					args["margin"] = 0
+				if !options.key?(args["command"] + "_horizontal_margin")
+					options[args["command"] + "_horizontal_margin"] = 0
 				end
-			
-				half_margin = (args["margin"] * 0.5).floor
+				
+				if !options.key?(args["command"] + "_vertical_margin")
+					options[args["command"] + "_vertical_margin"] = 0
+				end
+
+				margin = (options[args["command"] + "_horizontal_margin"] * 0.5).floor
+				half_margin = (options[args["command"] + "_vertical_margin"] * 0.5).floor
 			
 				pdf.pad half_margin do
-					pdf.indent args["margin"], args["margin"] do
+					pdf.indent margin, margin do
 						pdf.text args["text"], inline_format: true, leading: options[args["command"] + "_line_spacing"].to_f
 					end
 				end
@@ -86,19 +91,25 @@ module PrawndownExt
 				if File.extname(file) != ".gif"
 					if !(height.nil? && width.nil?)
 					
-						if height.nil? && !width.nil?
-							pdf.image(file,
-											width: [pdf.bounds.width, width].min,
-											position: :center)
-						elsif !height.nil? && width.nil?
-							pdf.image(file,
-											height: height,
-											position: :center)
-						else
-							pdf.image(file,
-											width: [pdf.bounds.width, width].min,
-											height: height,
-											position: :center)
+						if !options.key?("image_pad")
+							options["image_pad"] = 0
+						end
+					
+						pdf.pad options["image_pad"] do
+							if height.nil? && !width.nil?
+								pdf.image(file,
+												width: [pdf.bounds.width, width].min,
+												position: :center)
+							elsif !height.nil? && width.nil?
+								pdf.image(file,
+												height: height,
+												position: :center)
+							else
+								pdf.image(file,
+												width: [pdf.bounds.width, width].min,
+												height: height,
+												position: :center)
+							end
 						end
 					end
 				end

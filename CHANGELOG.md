@@ -1,5 +1,9 @@
 ## [Released]
 
+## [0.1.13] - 2025-06-18
+
+- Added ``image_pad``, ``horizontal_margin`` and ``vertical_margin`` for textboxes (like quotes).
+
 ## [0.1.12] - 2025-06-14
 
 - Made it so <br> works more intuitively with ColumnBox
