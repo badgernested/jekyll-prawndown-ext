@@ -136,30 +136,30 @@ module PrawndownExt
 			end
 		
 		end
-  
+		
 		def unescape_text text
 			text = text.gsub('\\"', '"')
 		end
-  
-    # Renders Markdown in the current document
-    #
-    # It supports header 1-6, bold text, italic text, strikethrough and links
-    # It supports the same options as +Prawn::Document#text+
-    #
-    #   Prawn::Document.generate('markdown.pdf') do
-    #     markdown '# Welcome to Prawndown!'
-    #     markdown '**Important:** We _hope_ you enjoy your stay!'
-    #   end
-    def markdown(string, options: {})
-    
+		
+	  # Renders Markdown in the current document
+	  #
+	  # It supports header 1-6, bold text, italic text, strikethrough and links
+	  # It supports the same options as +Prawn::Document#text+
+	  #
+	  #   Prawn::Document.generate('markdown.pdf') do
+	  #     markdown '# Welcome to Prawndown!'
+	  #     markdown '**Important:** We _hope_ you enjoy your stay!'
+	  #   end
+	  def markdown(string, options: {})
+	  
 				if !options.key?("default_line_spacing")
 					options["default_line_spacing"] = 0
 				end
 
-      	processed = PrawndownExt::Parser.new(string, options).to_prawn
+	    	processed = PrawndownExt::Parser.new(string, options).to_prawn
 
 				processed.each do |output|	
-					
+
 					begin
 						object = JSON.parse(output.strip)
 					
@@ -167,10 +167,9 @@ module PrawndownExt
 					rescue
 						text unescape_text(output), inline_format: true, leading: options["default_line_spacing"].to_f
 					end
-      		
-      	end
-    end
-    
+	    		
+	    	end
+	  end
   end
 end
 

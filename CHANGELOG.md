@@ -1,5 +1,9 @@
 ## [Released]
 
+## [0.1.14] - 2025-06-18
+
+- Fixed bug that caused output error
+
 ## [0.1.13] - 2025-06-18
 
 - Added ``image_pad``, ``horizontal_margin`` and ``vertical_margin`` for textboxes (like quotes).
