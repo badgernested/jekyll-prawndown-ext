@@ -130,7 +130,7 @@ module PrawndownExt
     end
     
 		def paragraph(text)
-			%(#{text})
+			%(#{text}\n\n)
 		end
 		
     def linebreak

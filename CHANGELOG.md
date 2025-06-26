@@ -1,5 +1,9 @@
 ## [Released]
 
+## [0.1.16] - 2025-06-26
+
+- Fixed bug that caused paragraphs to not render properly.
+
 ## [0.1.15] - 2025-06-24
 
 - Added detecting tag ``<div class="output-exclude"></div>`` which will exclude its contents from the output.
