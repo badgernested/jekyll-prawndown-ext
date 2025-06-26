@@ -14,12 +14,13 @@ Gem::Specification.new do |spec|
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.1.0"
 
-  spec.files = ["lib/prawndown-ext.rb", "lib/prawndown/parser.rb", "lib/prawndown/version.rb"]
+  spec.files = ["lib/prawndown-ext.rb", "lib/prawndown/new-parser.rb", "lib/prawndown/version.rb"]
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "prawn", "~> 2.5", ">= 2.5.0"
+  spec.add_runtime_dependency "redcarpet", "~> 3.6.1", ">= 3.6.1"
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

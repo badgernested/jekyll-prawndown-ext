@@ -1,5 +1,11 @@
 ## [Released]
 
+## [0.1.15] - 2025-06-24
+
+- Added detecting tag ``<div class="output-exclude"></div>`` which will exclude its contents from the output.
+- Added detecting tag ``<div class="webpage-exclude"></div>``. It will just remove the tag. It is expected from the developer of the website to set CSS for the class ``webpage-exclude`` to ``display: none;``.
+- Migrated to [redcarpet](https://github.com/vmg/redcarpet/) for more accurate markdown parsing and additional features. (Documentation has not been updated yet)
+
 ## [0.1.14] - 2025-06-18
 
 - Fixed bug that caused output error

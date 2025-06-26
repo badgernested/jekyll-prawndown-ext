@@ -1,6 +1,6 @@
 require 'prawn'
 require "prawndown/version"
-require "prawndown/parser"
+require "prawndown/new-parser"
 require 'json'
 
 module PrawndownExt
@@ -43,7 +43,7 @@ module PrawndownExt
 
 				margin = (options[args["command"] + "_horizontal_margin"] * 0.5).floor
 				half_margin = (options[args["command"] + "_vertical_margin"] * 0.5).floor
-			
+
 				pdf.pad half_margin do
 					pdf.indent margin, margin do
 						pdf.text args["text"], inline_format: true, leading: options[args["command"] + "_line_spacing"].to_f
@@ -96,6 +96,7 @@ module PrawndownExt
 						end
 					
 						pdf.pad options["image_pad"] do
+						
 							if height.nil? && !width.nil?
 								pdf.image(file,
 												width: [pdf.bounds.width, width].min,
@@ -156,7 +157,29 @@ module PrawndownExt
 					options["default_line_spacing"] = 0
 				end
 
-	    	processed = PrawndownExt::Parser.new(string, options).to_prawn
+	    	#processed = PrawndownExt::Parser.new(string, options).to_prawn
+
+				md = Redcarpet::Markdown.new(PrawndownExt::Render, render_options = {
+					:footnotes => true,
+					:quote => false,
+					:space_after_headers => true,
+					:lax_spacing => true,
+					:strikethrough => true,
+					:disable_indented_code_blocks => true,
+					:autolink => false,
+					:fenced_code_blocks => true,
+					:no_intra_emphasis => true,
+					
+				
+				})
+
+				text = md.render(string)
+				
+				renderer = PrawndownExt::Render.new()
+				
+				renderer.set_options options
+				
+				processed = renderer.finalize_input text
 
 				processed.each do |output|	
 
