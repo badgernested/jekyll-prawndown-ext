@@ -61,11 +61,11 @@ module PrawndownExt
     }
 	
 		def block_quote(quote)
-		  %(<command_break>{"command":"quote","margin":QUOTE_MARGIN,"text":"<font name=\'QUOTE_FONT\' character_spacing=\'QUOTE_FONT_SPACING\' size=\'QUOTE_SIZE\'>#{quote}</font>"}<command_break>)
+		  %(<command_break>{"command":"quote","margin":QUOTE_MARGIN,"text":"<font name=\'QUOTE_FONT\' character_spacing=\'QUOTE_FONT_SPACING\' size=\'QUOTE_SIZE\'>#{quote.strip.gsub("\"","\\\"").gsub("\n","\\n")}</font>"}<command_break>)
 		end
 		
 		def block_code(code)
-		  %(<command_break>{"command":"code","margin":CODE_MARGIN,"text":"<font name=\'CODE_FONT\' character_spacing=\'CODE_FONT_SPACING\' size=\'CODE_SIZE\'>#{code}</font>"}<command_break>)
+		  %(<command_break>{"command":"code","margin":CODE_MARGIN,"text":"<font name=\'CODE_FONT\' character_spacing=\'CODE_FONT_SPACING\' size=\'CODE_SIZE\'>#{code.strip.gsub("\"","\\\"")}</font>"}<command_break>)
 		end
 		
 		def block_code(code)
@@ -73,7 +73,7 @@ module PrawndownExt
 		end
 		
     def footnote_def(content, number)
-    	%(\n#{number}. #{content})
+    	%(#{number}. #{content})
     end
     
     def footnote_ref(text)

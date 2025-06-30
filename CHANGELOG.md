@@ -1,5 +1,9 @@
 ## [Released]
 
+## [0.1.17] - 2025-06-30
+
+- Fixed blockquote generation.
+
 ## [0.1.16] - 2025-06-26
 
 - Fixed bug that caused paragraphs to not render properly.

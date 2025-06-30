@@ -32,11 +32,11 @@ module PrawndownExt
 				if !options.key?(args["command"] + "_line_spacing")
 					options[args["command"] + "_line_spacing"] = 0
 				end
-
+				
 				if !options.key?(args["command"] + "_horizontal_margin")
 					options[args["command"] + "_horizontal_margin"] = 0
 				end
-				
+
 				if !options.key?(args["command"] + "_vertical_margin")
 					options[args["command"] + "_vertical_margin"] = 0
 				end
@@ -128,7 +128,7 @@ module PrawndownExt
 			def exec args, pdf, options
 				if args.key?("command")
 					if COMMAND.include?(args["command"])
-
+						
 						COMMAND[args["command"]].call(args, pdf, options)
 						
 					end
@@ -184,10 +184,11 @@ module PrawndownExt
 				processed.each do |output|	
 
 					begin
+					
 						object = JSON.parse(output.strip)
 					
 						CommandInterface.new.exec object, self, options
-					rescue
+					rescue => error
 						text unescape_text(output), inline_format: true, leading: options["default_line_spacing"].to_f
 					end
 	    		
